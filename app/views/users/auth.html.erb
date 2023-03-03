@@ -1,0 +1,54 @@
+Autenticar
+
+<form>
+  Email: <input type='text' name='email' placeholder='your-name@domain.com' />
+  Password: <input type='password' name='password' placeholder='*********' />
+  <button type='submit'>
+    ENTRAR
+  </button>
+</form>
+
+<div id='qr-code-area'> <!--  hidden='true' -->
+  <img id='qr-code' src="#" alt="Qr Code For Auth">
+</div>
+
+<input id='pre' type='text' />
+
+<script>
+  $(document).ready(function() {
+    var token = document.querySelector('meta[name="csrf-token"]').content;
+
+    String.prototype.hashCode = function() {
+      var hash = 0, i, chr;
+      if (this.length === 0) return hash;
+      for (i = 0; i < this.length; i++) {
+        chr = this.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0;
+      }
+
+      return hash;
+    }
+
+    $("#qr-code").attr("src", `https://ace2-131-72-92-236.sa.ngrok.io/qr_code_download?content=${token.hashCode()}`);
+    $("#pre").val(token.hashCode());
+
+    // function doStuff(token) {
+    //   console.log('oi')
+    //   // $.get(`http://localhost:3000/remote_ping?token=${token}`, function(data) {
+    //   //   // $( ".result" ).html( data );
+    //   //   console.log('data');
+    //   // });
+    // }
+
+    window.setInterval(function() {
+      $.get(`https://ace2-131-72-92-236.sa.ngrok.io/remote_ping?token=${token.hashCode()}`, function(data) {
+        if (data.message !== 'Permission not found') {
+          alert('OPA! DEU MUITO BOM MEU AMIGO!');
+          window.location.replace("https://ace2-131-72-92-236.sa.ngrok.io/cars");
+        }
+      });
+    }, 5000);
+  });
+  
+</script>

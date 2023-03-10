@@ -19,7 +19,7 @@
             <div class="mb-3 row">
               <label for="staticEmail" class="col-sm-2 col-form-label">Password</label>
               <div class="col-sm-10">
-                <input type="password" class="form-control" id="staticEmail" name="password" placeholder="******">
+                <input type="password" class="form-control" id="staticPassword" name="password" placeholder="******">
               </div>
             </div>
 
@@ -60,7 +60,7 @@
 
 <script>
   $(document).ready(function() {
-    var api = 'http://localhost:3000';
+    var base_url = window.location.origin;
     var token = document.querySelector('meta[name="csrf-token"]').content;
     var checkAttempts = 0;
 
@@ -76,28 +76,30 @@
       return hash;
     }
 
-    $("#qr-code").attr("src", `${api}/qr_code_download?content=${token.hashCode()}`);
+    $("#qr-code").attr("src", `${base_url}/qr_code_download?content=${token.hashCode()}`);
     $("#pre").val(token.hashCode());
 
     $("#confirm-button").on("click", function() {
       $("#auth-success-alert").removeClass("visually-hidden");
       window.setInterval(function() {
-        window.location.replace(`${api}/cars`);
+        window.location.replace(`${base_url}/cars`);
       }, 3000);
     });
-
-    if (checkAttempts <= 10) {
-      window.setInterval(function() {
+  
+    window.setInterval(function() {
+      if (checkAttempts <= 10) {
+        checkAttempts ++;
         $.get(`${api}/remote_ping?token=${token.hashCode()}`, function(data) {
           if (data.message !== 'Permission not found') {
             $("#auth-success-alert").removeClass("visually-hidden");
             window.setInterval(function() {
-              window.location.replace(`${api}/cars`);
+              window.location.replace(`${base_url}/cars`);
             }, 3000);
           }
         });
-      }, 3000);
-    }
+      }
+    }, 3000);
+    
   });
   
 </script>

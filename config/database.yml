@@ -3,12 +3,12 @@ default: &default
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: localhost
-  user: postgres
-  password: postgres
   port: 5432
 
 development:
   <<: *default
+  user: postgres
+  password: postgres
   database: <%= ENV['CYPRESS'] ? 'Cards4Trade_test' : 'Cards4Trade_development' %>
 
 test:
@@ -20,6 +20,8 @@ development:
   database: qr_code_generator_usage_dev
 
 production:
-  <<: *default
-  database: qr_code_generator_usage_dev
-
+  host: ec2-3-93-160-246.compute-1.amazonaws.com
+  database: d3f10nvqv6oe2r
+  user: smkcckfjkcozul
+  port: 5432
+  password: 394493dd2e09b689060bc8d5e4b38fce2711f07695600bea2cfad490e040b355

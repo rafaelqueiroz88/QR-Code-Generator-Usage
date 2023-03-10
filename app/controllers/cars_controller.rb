@@ -57,12 +57,6 @@ class CarsController < ApplicationController
     end
   end
 
-  def qr_code_generator; end
-
-  def qr_code_download
-    send_data RQRCode::QRCode.new(params[:content].to_s).as_png(size: 300), type: 'image/png', disposition: 'inline'
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_car

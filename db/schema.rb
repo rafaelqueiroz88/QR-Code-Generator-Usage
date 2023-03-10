@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_01_204858) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_03_002405) do
   create_table "cars", force: :cascade do |t|
     t.string "name"
     t.string "model"
@@ -24,8 +24,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_204858) do
     t.string "is_enabled"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
-    t.index ["user_id"], name: "index_remote_permissions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -39,5 +37,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_204858) do
     t.string "token"
   end
 
-  add_foreign_key "remote_permissions", "users"
 end

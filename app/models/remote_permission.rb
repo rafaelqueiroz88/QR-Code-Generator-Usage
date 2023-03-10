@@ -1,0 +1,2 @@
+class RemotePermission < ApplicationRecord
+end

@@ -72,18 +72,14 @@ class UsersController < ApplicationController
   # @post /remote_authentication
   # params: email, token
   def remote_authentication
-    puts 'BBBBBBBB'
-    puts params[:token]
     RemotePermission.create(token: params[:token], is_enabled: 'true')
     render json: { message: 'ok' }, status: :ok
   end
 
-  # @get /remote_ping?token=:token
+  # @get /remote_ping
   def remote_ping
     # render json: { message: 'Permission not found' }, status: :not_found \
     #   if params[:token].nil?
-    puts 'AAAAAAAAAAAa'
-    puts params[:token]
     permission = RemotePermission.find_by(token: params[:token], is_enabled: 'true')
 
     if permission.nil?

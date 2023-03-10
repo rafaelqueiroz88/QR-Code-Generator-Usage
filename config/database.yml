@@ -9,15 +9,7 @@ development:
   <<: *default
   user: postgres
   password: postgres
-  database: <%= ENV['CYPRESS'] ? 'Cards4Trade_test' : 'Cards4Trade_development' %>
-
-test:
-  <<: *default
-  database: Cards4Trade_test
-
-development:
-  <<: *default
-  database: qr_code_generator_usage_dev
+  database: qr_code_dev
 
 production:
   host: ec2-3-93-160-246.compute-1.amazonaws.com

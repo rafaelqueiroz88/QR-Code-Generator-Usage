@@ -60,7 +60,7 @@
 
 <script>
   $(document).ready(function() {
-    var base_url = window.location.origin;
+    var base_url = window.location.host;
     var token = document.querySelector('meta[name="csrf-token"]').content;
     var checkAttempts = 0;
 
@@ -76,20 +76,20 @@
       return hash;
     }
 
-    $("#qr-code").attr("src", `${base_url}/qr_code_download?content=${token.hashCode()}`);
+    $("#qr-code").attr("src", `https://authenticator-by-qrcode-sample.herokuapp.com/qr_code_download?content=${token.hashCode()}`);
     $("#pre").val(token.hashCode());
 
     $("#confirm-button").on("click", function() {
       $("#auth-success-alert").removeClass("visually-hidden");
       window.setInterval(function() {
-        window.location.replace(`${base_url}/cars`);
+        window.location.replace(`https://authenticator-by-qrcode-sample.herokuapp.com/cars`);
       }, 3000);
     });
   
     window.setInterval(function() {
       if (checkAttempts <= 10) {
         checkAttempts ++;
-        $.get(`${api}/remote_ping?token=${token.hashCode()}`, function(data) {
+        $.get(`https://authenticator-by-qrcode-sample.herokuapp.com/remote_ping?token=${token.hashCode()}`, function(data) {
           if (data.message !== 'Permission not found') {
             $("#auth-success-alert").removeClass("visually-hidden");
             window.setInterval(function() {

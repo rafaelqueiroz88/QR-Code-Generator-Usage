@@ -10,10 +10,3 @@ development:
   user: postgres
   password: postgres
   database: qr_code_dev
-
-production:
-  host: ec2-3-93-160-246.compute-1.amazonaws.com
-  database: d3f10nvqv6oe2r
-  user: smkcckfjkcozul
-  port: 5432
-  password: 394493dd2e09b689060bc8d5e4b38fce2711f07695600bea2cfad490e040b355
